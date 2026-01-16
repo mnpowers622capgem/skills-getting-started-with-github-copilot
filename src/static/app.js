@@ -41,6 +41,26 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Load activities for the dropdown
+  async function loadActivities() {
+    try {
+      const response = await fetch("/activities");
+      const activities = await response.json();
+
+      const dropdown = document.getElementById("activity-dropdown");
+      dropdown.innerHTML = '<option value="">Select Activity</option>';
+
+      for (const activityName in activities) {
+        const option = document.createElement("option");
+        option.value = activityName;
+        option.textContent = activityName;
+        dropdown.appendChild(option);
+      }
+    } catch (error) {
+      console.error("Error loading activities:", error);
+    }
+  }
+
   // Handle form submission
   signupForm.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -83,4 +103,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initialize app
   fetchActivities();
+  loadActivities();
 });
