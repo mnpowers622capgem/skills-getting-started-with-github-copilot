@@ -21,24 +21,30 @@ app.mount("/static", StaticFiles(directory=os.path.join(Path(__file__).parent,
 
 # In-memory activity database
 activities = {
-    "Chess Club": {
-        "description": "Learn strategies and compete in chess tournaments",
-        "schedule": "Fridays, 3:30 PM - 5:00 PM",
-        "max_participants": 12,
-        "participants": ["michael@mergington.edu", "daniel@mergington.edu"]
+    "Chess": {
+        "capacity": 20,
+        "signup": [],
+        "description": "Improve strategic thinking and problem-solving through weekly chess matches and tutorials.",
+        "schedule": "Tuesdays 3:30 PM - 5:00 PM, Room 204",
     },
-    "Programming Class": {
-        "description": "Learn programming fundamentals and build software projects",
-        "schedule": "Tuesdays and Thursdays, 3:30 PM - 4:30 PM",
-        "max_participants": 20,
-        "participants": ["emma@mergington.edu", "sophia@mergington.edu"]
+    "Drama": {
+        "capacity": 16,
+        "signup": [],
+        "description": "Participate in acting workshops and school theater productions.",
+        "schedule": "Thursdays 3:30 PM - 5:30 PM, Auditorium",
     },
-    "Gym Class": {
-        "description": "Physical education and sports activities",
-        "schedule": "Mondays, Wednesdays, Fridays, 2:00 PM - 3:00 PM",
-        "max_participants": 30,
-        "participants": ["john@mergington.edu", "olivia@mergington.edu"]
-    }
+    "Robotics": {
+        "capacity": 10,
+        "signup": [],
+        "description": "Design, build, and program robots for competitions and exhibitions.",
+        "schedule": "Mondays 3:30 PM - 5:30 PM, Lab 3",
+    },
+    "Geology": {
+        "capacity": 15,
+        "signup": [],
+        "description": "Explore rocks, minerals, and earth sciences through hands-on activities.",
+        "schedule": "Wednesdays 3:30 PM - 5:00 PM, Room 118",
+    },
 }
 
 
@@ -58,10 +64,10 @@ def signup_for_activity(activity_name: str, email: str):
     # Validate activity exists
     if activity_name not in activities:
         raise HTTPException(status_code=404, detail="Activity not found")
-
     # Get the specific activity
     activity = activities[activity_name]
+# Validate student is not already signed up
 
     # Add student
-    activity["participants"].append(email)
+    activity["signup"].append(email)
     return {"message": f"Signed up {email} for {activity_name}"}
